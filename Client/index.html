@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+#titles
+{
+	position: absolute;
+	width: 18em;
+	height: 50em;
+	bottom: 0;
+	left: 50%;
+	margin-left: -9em;
+	font-size: 60px;
+	font-weight: bold;
+	text-align: justify;
+	overflow: hidden;
+	transform-origin: 50% 100%;
+	transform: perspective(300px) rotateX(13deg);
+}
+
+#titles:after
+{
+	position: absolute;
+	content: ' ';
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 60%;
+	background-image: linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
+	pointer-events: none;
+}
+
+#titlecontent
+{
+	position: absolute;
+	top: 100%;
+	animation: scroll 100s linear 3s infinite;
+}
+
+@keyframes scroll {
+	0% { top: 100%; }
+	100% { top: -170%; }
+}
+
+#sqlwars {
+    -webkit-transition: all 5000ms linear;
+    -moz-transition: all 5000ms linear;
+    -ms-transition: all 5000ms linear;
+    -o-transition: all 5000ms linear;
+    transition: all 5000ms linear;
+}
+#sqlwars.hidden {
+    -moz-opacity: 0;
+    opacity: 0;
+    -moz-transform: scale(0.01);
+    -webkit-transform: scale(0.01);
+    -o-transform: scale(0.01);
+    -ms-transform: scale(0.01);
+    transform: scale(0.01);
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+
+window.addEventListener("click", function(e){
+	window.location.href = "game.html";
+});
+	
+$( document ).ready(function() {
+
+	$('#sqlwars').hide();
+	$('#titles').hide();
+	
+	setTimeout(function(){
+		$('#step1').fadeOut(3000);
+	}, 3000);
+	
+	setTimeout(function(){
+		$('#sqlwars').show();
+	}, 6000);
+	
+	setTimeout(function(){
+		$('#sqlwars').addClass('hidden');
+	}, 10000);
+	
+	setTimeout(function(){
+		$('#titles').show();
+	}, 12000);
+});
+
+
+</script>
+</head>
+<body style="background-color: #565e61; color: white; font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; ">
+
+	<div id='step1' style="color: #0396d8;
+		display: block;
+		font-size: 60px;
+		width: 800px;
+		height: 300px;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;">
+	Not that long ago in an office not that far away....
+	</div>
+	
+	<div id='sqlwars' style="color: yellow;
+		display: block;
+		font-size: 120px;
+		width: 500px;
+		height: 150px;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;">
+	SQL Wars
+	</div>
+
+	<div id="titles">
+		<div id="titlecontent">
+		
+			<div style="color: yellow; padding-bottom: 80px; font-size: 60px; margin:auto; width:250px;">
+			Episode V
+			</div>
+			<div style="color: yellow; padding-bottom: 120px; font-size: 80px; margin:auto; width:875px;">
+			MONGODB STRIKES BACK
+			</div>
+			<div style="color: yellow; padding-bottom: 80px;">
+			It is a dark time for SQL Server. Although the single multi-tenant database has been destroyed, Mongo troops have driven the SQL databases from their applications and pursued them across the software development landscape.
+			</div>
+			<div style="color: yellow; padding-bottom: 80px;">
+			Evading the dreaded Mongo Leaf fleet, a group of SQL fighters led by Matt Watt has established a new secret base on the remote ice world of Minneapolis.
+			</div>
+			<div style="color: yellow">
+			The evil lord Burst, obsessed with finding young Watt, has dispatched thousands of remote Mongo leaves into the far reaches of Calabrio....
+			</div>
+
+		</div>
+	</div>
+	
+	<div>
+		Click anywhere to play
+	</div>
+	
+	<audio onloadeddata="var audioPlayer = this; setTimeout(function() { audioPlayer.play(); }, 6000)">
+	  <source src="https://ia601703.us.archive.org/15/items/StarWarsThemeSongByJohnWilliams/Star%20Wars%20Theme%20Song%20By%20John%20Williams.mp3" type="audio/mpeg">
+	</audio>
+</body>
+</html>
+
+
