@@ -6,7 +6,8 @@
         UUID            = require('node-uuid'),
 
         verbose         = false,
-        app             = express.createServer();
+		http = require('http'),
+        app             = express();
 
 /* Express server set up. */
 
@@ -23,7 +24,7 @@
 
         //By default, we forward the / path to index.html automatically.
     app.get( '/', function( req, res ){ 
-        res.sendfile( __dirname + '/simplest.html' );
+        res.sendfile( __dirname + '/Client/game.html' );
     });
 
 
@@ -43,21 +44,18 @@
 
     }); //app.get *
 	
-	
+	var server = http.createServer(app);
 	       //Create a socket.io instance using our express server
-    var sio = io.listen(app);
-
-        //Configure the socket.io connection settings. 
-        //See http://socket.io/
-    sio.configure(function (){
-
-        sio.set('log level', 0);
-
-        sio.set('authorization', function (handshakeData, callback) {
-          callback(null, true); // error first callback style 
-        });
-
-    });
+    var sio = io.listen(server);
+	
+	sio.use(function(socket, next) {
+		  var handshakeData = socket.request;
+		  // make sure the handshake data looks good as before
+		  // if error do this:
+			//next(new Error('not authorized');
+		  // else just call next
+		  next();
+		});
 
         //Socket.io will call this function when a client connects, 
         //So we can send that client a unique ID we use so we can 

@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 </head>
 <body onload="startGame()" style="background-color: #565e61; color: white;">
 <script>
@@ -52,7 +53,6 @@
 	var currentPowerup = null;
 
     var drawInterval;
-    var spawnEnemyInterval;
 	var spawnPowerupInterval;
     var timerInterval;
 
@@ -125,7 +125,6 @@
         }
 
         drawInterval = setInterval(drawAllEntities, 50);
-        spawnEnemyInterval = setInterval(spawnEnemiesIfNeeded, 500);
 		spawnPowerUpInterval = setInterval(spawnPowerUpIfNeeded, 1000);
         timerInterval = setInterval(function() {
             timer++;
@@ -553,18 +552,6 @@
             }
         }
     }
-
- function spawnEnemiesIfNeeded() {
-        if (this.currentEnemies.length < 40 && !isBombActive && (timer < 30 || bossKilled)) {
-            var mongoEnemy = createMongoEnemy();
-            this.currentEnemies.push(mongoEnemy);
-			totalEnemies += 1;
-        } else if(timer > 30 && !bossKilled && !bossSpawned) {
-            this.currentEnemies = [];
-            this.currentEnemies.push(createBirstBoss());
-            bossSpawned = true;
-        }
-    }
 	
 	function spawnPowerUpIfNeeded() {
 		if (currentPowerup == null) {
@@ -576,7 +563,6 @@
 
     function gameOver() {
         clearInterval(drawInterval);
-        clearInterval(spawnEnemyInterval);
         clearInterval(timerInterval);
         setInterval(function () {
 			gameArea.clear();
@@ -613,6 +599,14 @@
         }
         context.fillText(line, x, y);
     }
+
+			//This is all that needs
+			var socket = io.connect('/');
+				//Now we can listen for that event
+			socket.on('onconnected', function( data ) {
+					//Note that the data is the object we sent from the server, as is. So we can assume its id exists. 
+		  		console.log( 'Connected successfully to the socket.io server. My server side ID is ' + data.id );
+		  	});
 
 
 </script>
