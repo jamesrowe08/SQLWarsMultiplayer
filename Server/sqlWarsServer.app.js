@@ -16,9 +16,6 @@
 //and will serve any file the user requests from the root of your web server (where you launch the script from)
 //so keep this in mind - this is not a production script but a development teaching tool.
 
-        //Tell the server to listen for incoming connections
-    app.listen( gameport );
-
         //Log something so we know that it succeeded.
     console.log('\t :: Express :: Listening on port ' + gameport );
 
@@ -45,6 +42,7 @@
     }); //app.get *
 	
 	var server = http.createServer(app);
+	server.listen(gameport);
 	       //Create a socket.io instance using our express server
     var sio = io.listen(server);
 	
